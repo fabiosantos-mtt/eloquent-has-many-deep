@@ -108,9 +108,7 @@ class HasManyDeepTest extends TestCase
     public function testEagerLoadingWithLimit()
     {
         $countries = Country::with(['comments' => function (HasManyDeep $query) {
-            $query->orderByDesc('comments.id')->limit(1);
-
-            print_r($query);
+            exit($query->orderByDesc('comments.id')->limit(1)->toSql());
         }])->get();
 
         $this->assertEquals([32], $countries[0]->comments->pluck('id')->all());
